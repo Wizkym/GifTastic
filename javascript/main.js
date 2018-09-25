@@ -3,6 +3,7 @@ let sports = ['soccer', 'football', 'basketball', 'hockey', 'ping pong', 'tennis
 // Define default search params
 const apiKey = '1loVfAxwBi0t2FP96Nsgh8JVUzZLWHxE';
 let q = 'sports';
+let limit = 10;
 let response;
 
 $('document').ready(function () {
@@ -11,7 +12,7 @@ $('document').ready(function () {
 });
 
 let getData = () => {
-    let url = `http://api.giphy.com/v1/gifs/search?q=${q}&api_key=${apiKey}&limit=10`;
+    let url = `https://api.giphy.com/v1/gifs/search?q=${q}&api_key=${apiKey}&limit=${limit}`;
 
     let xhr = $.get(url);
     xhr.done(function(data) {
