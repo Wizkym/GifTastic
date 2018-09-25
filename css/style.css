@@ -66,3 +66,18 @@ hr {
     height: 2px;
     color: #ffbf00;
 }
+
+.card-header {
+    background-color: #333333;
+    color: white;
+    font-weight: bold;
+}
+
+#favs {
+    margin-top: 20px;
+    color: black;
+}
+
+#favsClear {
+    margin-top: 10px;
+}

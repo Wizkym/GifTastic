@@ -1,10 +1,16 @@
 // Define theme array
-let sports = ['soccer', 'football', 'basketball', 'hockey', 'ping pong', 'tennis', 'rugby', 'formula 1', 'skating', 'formula drift', 'cricket', 'volleyball'];
+let topics = ['soccer', 'football', 'basketball', 'hockey', 'ping pong', 'tennis', 'rugby', 'formula 1', 'skating', 'formula drift', 'cricket', 'volleyball'];
 // Define default search params
 const apiKey = '1loVfAxwBi0t2FP96Nsgh8JVUzZLWHxE';
-let q = 'sports';
+let q = 'football';
 let limit = 10;
 let response;
+
+let list = JSON.parse(localStorage.getItem("favlist"));
+if (!Array.isArray(list)) {
+    list = [];
+}
+renderFavs(list);
 
 $('document').ready(function () {
     displayBtns();
@@ -23,12 +29,12 @@ let getData = () => {
 
 function displayBtns () {
     $('.buttons').empty();
-    for( let sport of sports) {
+    for( let topic of topics) {
         let newBtn = $('<button>', {
-            text: sport,
+            text: topic,
             class: 'btn btn-success',
             id: 'buttons',
-            data_value: sport
+            data_value: topic
         });
         $('.buttons').append(newBtn);
     }
@@ -63,20 +69,66 @@ $('.row').on('click', 'img#gif', function () {
 $('#add').on('click', function () {
     event.preventDefault();
 
-    let newKey = $('#newKey').val().trim();
+    let newKey = $('#newKey').val().trim().toLowerCase();
     if (newKey === '') {
         alert('please enter a search item');
     } else {
-        sports.push(newKey);
+        topics.push(newKey);
         displayBtns();
     }
 });
 
 $('.buttons').on('click', '#buttons', function () {
+    limit = 10;
     let newkey = $(this).attr('data_value');
     console.log(newkey);
     q = newkey;
     getData();
 });
+
+$('#more').on('click', function () {
+    limit += 10;
+    getData();
+});
+
+$('#favsBtn').on('click', function () {
+    event.preventDefault();
+
+    let newFav = $('#newKey').val().trim().toLowerCase();
+    console.log(newFav);
+    if (newFav === '') {
+        alert('please enter a new favorite item');
+    } else {
+        list.push(newFav);
+        renderFavs(list);
+        localStorage.setItem("favlist", JSON.stringify(list));
+    }
+});
+
+function renderFavs (list) {
+    $('.favCard').empty();
+
+    for (let fav in list) {
+        let newFav = $('<li>');
+        newFav.text(list[fav]);
+        newFav.addClass("list-group-item");
+        newFav.attr("data-to-do", fav);
+
+        $('.favCard').append(newFav);
+    }
+}
+
+$('.favCard').on('click', 'li', function () {
+     let index = $(this).attr('data-to-do');
+     q = list[index];
+     getData();
+});
+
+$('#favsClear').on('click', function () {
+    localStorage.clear();
+    list.length = 0;
+    $('.favCard').empty();
+});
+
 
 

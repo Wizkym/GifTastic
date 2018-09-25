@@ -28,12 +28,24 @@
         <div class="col-lg-3" id="my-form">
             <form>
                 <div class="form-group">
-                    <label for="newKey">Add a new Button</label>
+                    <label for="newKey">Add a new button or favorite</label>
                     <input type="text" class="form-control" id="newKey" placeholder="Enter text" onfocus="this.value=''">
                 </div>
                 <button id="add" type="submit" class="btn btn-primary">Submit</button>
+                <button id="favsBtn" type="submit" class="btn btn-primary">Favorite</button>
             </form>
+            <div class="card" id="favs">
+                <div class="card-header">
+                    Favorites
+                </div>
+                <ul class="list-group list-group-flush favCard"></ul>
+            </div>
+            <button id="favsClear" type="submit" class="btn btn-danger"> Clear Favorites</button>
         </div>
+    </div>
+
+    <div class="more">
+        <button id="more" class="btn btn-primary">More</button>
     </div>
 </div>
 <hr>
